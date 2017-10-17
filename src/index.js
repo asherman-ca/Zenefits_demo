@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-// import App from './components/core/app';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import MyAwesomeReactComponent from './components/core/app';
+import Root from './components/root';
+import configureStore from './components/store';
 
-// const App = () => (
-//   <MuiThemeProvider>
-//     <MyAwesomeReactComponent />
-//   </MuiThemeProvider>
-// );
 
-ReactDom.render(
-  <div>test</div>,
-  document.getElementById('root')
-);
+document.addEventListener('DOMContentLoaded', () => {
+  let store = configureStore();
+
+  ReactDom.render(
+    <Root store={store} />,
+    document.getElementById('root')
+  );
+});
+
+
