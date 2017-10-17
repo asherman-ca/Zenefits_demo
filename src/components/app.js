@@ -1,9 +1,10 @@
 import React from 'react';
+import Map from './map';
 
 const App = ({ children }) => (
   <div id="main">
-    <section id="chou-down">
-      
+    <section id="main-section">
+      <Map />
     </section>
     {children}
   </div>
