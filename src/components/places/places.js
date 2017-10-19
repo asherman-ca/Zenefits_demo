@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import Header from '../header/header_container';
-import Map from './map';
+import Map from '../core/map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
 
@@ -29,6 +28,7 @@ class App extends React.Component {
   }
 
   render(){
+    
     return(
       <div id="main">
         <Modal 

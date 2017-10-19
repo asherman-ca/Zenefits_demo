@@ -22330,9 +22330,13 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 225);
 	
-	var _app = __webpack_require__(/*! ./app */ 280);
+	var _places_container = __webpack_require__(/*! ../places/places_container */ 307);
 	
-	var _app2 = _interopRequireDefault(_app);
+	var _places_container2 = _interopRequireDefault(_places_container);
+	
+	var _places_detail_container = __webpack_require__(/*! ../places_detail/places_detail_container */ 305);
+	
+	var _places_detail_container2 = _interopRequireDefault(_places_detail_container);
 	
 	var _header_container = __webpack_require__(/*! ../header/header_container */ 303);
 	
@@ -22353,7 +22357,8 @@
 	      _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _header_container2.default },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default })
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _places_container2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/:placeId', component: _places_detail_container2.default })
 	      )
 	    )
 	  );
@@ -30375,131 +30380,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
 
 /***/ }),
-/* 280 */
-/*!************************************!*\
-  !*** ./src/components/core/app.js ***!
-  \************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactModal = __webpack_require__(/*! react-modal */ 281);
-	
-	var _reactModal2 = _interopRequireDefault(_reactModal);
-	
-	var _header_container = __webpack_require__(/*! ../header/header_container */ 303);
-	
-	var _header_container2 = _interopRequireDefault(_header_container);
-	
-	var _map = __webpack_require__(/*! ./map */ 293);
-	
-	var _map2 = _interopRequireDefault(_map);
-	
-	var _reactAutobind = __webpack_require__(/*! react-autobind */ 294);
-	
-	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
-	
-	var _styles = __webpack_require__(/*! ./styles */ 302);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
-	
-	  function App(props) {
-	    _classCallCheck(this, App);
-	
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-	
-	    _this.state = {
-	      modalIsOpen: true
-	    };
-	
-	    (0, _reactAutobind2.default)(_this);
-	    return _this;
-	  }
-	
-	  _createClass(App, [{
-	    key: 'openModal',
-	    value: function openModal() {
-	      this.setState({ modalIsOpen: true });
-	    }
-	  }, {
-	    key: 'closeModal',
-	    value: function closeModal() {
-	      this.setState({ modalIsOpen: false });
-	    }
-	  }, {
-	    key: 'afterOpenModal',
-	    value: function afterOpenModal() {
-	      this.subtitle.style.color = '#f00';
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'main' },
-	        _react2.default.createElement(
-	          _reactModal2.default,
-	          {
-	            isOpen: this.state.modalIsOpen,
-	            onAfterOpen: this.afterOpenModal,
-	            onRequestClose: this.closeModal,
-	            style: _styles2.default
-	          },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'modal-container' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'container' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                'Zenefits UI Demo'
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'produced by Alex Sherman'
-	              )
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'section',
-	          { id: 'main-section' },
-	          _react2.default.createElement(_map2.default, null)
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return App;
-	}(_react2.default.Component);
-	
-	exports.default = App;
-
-/***/ }),
+/* 280 */,
 /* 281 */
 /*!************************************!*\
   !*** ./~/react-modal/lib/index.js ***!
@@ -31719,6 +31600,18 @@
 	      };
 	
 	      this.map = new google.maps.Map(map, options);
+	
+	      function callback(results, status) {
+	        if (status == google.maps.places.PlacesServiceStatus.OK) {
+	          for (var i = 0; i < results.length; i++) {
+	            console.log(results[i]);
+	          }
+	        }
+	      }
+	
+	      var request = { query: 'chicken' };
+	      var service = new google.maps.places.PlacesService(this.map);
+	      service.textSearch(request, callback);
 	
 	      // this.props.businessPositions.forEach(business => this.addBusiness(business));
 	    }
@@ -41401,35 +41294,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 302 */
-/*!***************************************!*\
-  !*** ./src/components/core/styles.js ***!
-  \***************************************/
-/***/ (function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var customStyles = {
-	  content: {
-	    top: "50%",
-	    left: "50%",
-	    right: "auto",
-	    bottom: "auto",
-	    marginRight: "-50%",
-	    transform: "translate(-50%, -50%)",
-	    padding: "40px",
-	    borderRadius: "2px",
-	    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-	    width: "400px"
-	  }
-	};
-	
-	exports.default = customStyles;
-
-/***/ }),
+/* 302 */,
 /* 303 */
 /*!***************************************************!*\
   !*** ./src/components/header/header_container.js ***!
@@ -41528,6 +41393,286 @@
 	}(_react2.default.Component);
 	
 	exports.default = Header;
+
+/***/ }),
+/* 305 */
+/*!*****************************************************************!*\
+  !*** ./src/components/places_detail/places_detail_container.js ***!
+  \*****************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
+	
+	var _places_detail = __webpack_require__(/*! ./places_detail */ 306);
+	
+	var _places_detail2 = _interopRequireDefault(_places_detail);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps() {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps() {};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places_detail2.default);
+
+/***/ }),
+/* 306 */
+/*!*******************************************************!*\
+  !*** ./src/components/places_detail/places_detail.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PlacesDetail = function (_React$Component) {
+	  _inherits(PlacesDetail, _React$Component);
+	
+	  function PlacesDetail(props) {
+	    _classCallCheck(this, PlacesDetail);
+	
+	    return _possibleConstructorReturn(this, (PlacesDetail.__proto__ || Object.getPrototypeOf(PlacesDetail)).call(this, props));
+	  }
+	
+	  _createClass(PlacesDetail, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "nav",
+	          { className: "navbar navbar=expand-lg navbar-dark bg-dark justify-content-between" },
+	          _react2.default.createElement(
+	            "a",
+	            { className: "navbar-brand zenefits" },
+	            "Zenefits UI Demo"
+	          ),
+	          _react2.default.createElement(
+	            "form",
+	            { className: "form-inline" },
+	            _react2.default.createElement("input", { className: "form-control mr-sm-2", type: "text", placeholder: "Search", "aria-label": "Search" }),
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
+	              "Search"
+	            )
+	          )
+	        ),
+	        this.props.children
+	      );
+	    }
+	  }]);
+	
+	  return PlacesDetail;
+	}(_react2.default.Component);
+	
+	exports.default = PlacesDetail;
+
+/***/ }),
+/* 307 */
+/*!***************************************************!*\
+  !*** ./src/components/places/places_container.js ***!
+  \***************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
+	
+	var _places = __webpack_require__(/*! ./places */ 308);
+	
+	var _places2 = _interopRequireDefault(_places);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps() {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps() {};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places2.default);
+
+/***/ }),
+/* 308 */
+/*!*****************************************!*\
+  !*** ./src/components/places/places.js ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactModal = __webpack_require__(/*! react-modal */ 281);
+	
+	var _reactModal2 = _interopRequireDefault(_reactModal);
+	
+	var _map = __webpack_require__(/*! ../core/map */ 293);
+	
+	var _map2 = _interopRequireDefault(_map);
+	
+	var _reactAutobind = __webpack_require__(/*! react-autobind */ 294);
+	
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+	
+	var _styles = __webpack_require__(/*! ./styles */ 309);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+	
+	  function App(props) {
+	    _classCallCheck(this, App);
+	
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	
+	    _this.state = {
+	      modalIsOpen: true
+	    };
+	
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
+	  }
+	
+	  _createClass(App, [{
+	    key: 'openModal',
+	    value: function openModal() {
+	      this.setState({ modalIsOpen: true });
+	    }
+	  }, {
+	    key: 'closeModal',
+	    value: function closeModal() {
+	      this.setState({ modalIsOpen: false });
+	    }
+	  }, {
+	    key: 'afterOpenModal',
+	    value: function afterOpenModal() {
+	      this.subtitle.style.color = '#f00';
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'main' },
+	        _react2.default.createElement(
+	          _reactModal2.default,
+	          {
+	            isOpen: this.state.modalIsOpen,
+	            onAfterOpen: this.afterOpenModal,
+	            onRequestClose: this.closeModal,
+	            style: _styles2.default
+	          },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-container' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'container' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Zenefits UI Demo'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                'produced by Alex Sherman'
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'section',
+	          { id: 'main-section' },
+	          _react2.default.createElement(_map2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return App;
+	}(_react2.default.Component);
+	
+	exports.default = App;
+
+/***/ }),
+/* 309 */
+/*!*****************************************!*\
+  !*** ./src/components/places/styles.js ***!
+  \*****************************************/
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var customStyles = {
+	  content: {
+	    top: "50%",
+	    left: "50%",
+	    right: "auto",
+	    bottom: "auto",
+	    marginRight: "-50%",
+	    transform: "translate(-50%, -50%)",
+	    padding: "40px",
+	    borderRadius: "2px",
+	    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+	    width: "400px"
+	  }
+	};
+	
+	exports.default = customStyles;
 
 /***/ })
 /******/ ]);

@@ -17,6 +17,18 @@ class MapItem extends React.Component {
 
     this.map = new google.maps.Map(map, options);
 
+    function callback(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          console.log(results[i]);
+        }
+      }
+    }
+   
+    let request = { query: 'chicken' };
+    let service = new google.maps.places.PlacesService(this.map);
+    service.textSearch(request, callback);
+
     // this.props.businessPositions.forEach(business => this.addBusiness(business));
   }
 
