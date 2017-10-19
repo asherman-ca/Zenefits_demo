@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import Header from '../header/header_container';
 import Map from './map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
@@ -44,6 +45,7 @@ class App extends React.Component {
           </div>
         </Modal>
         <section id="main-section">
+          {/* <Header /> */}
           <Map />
         </section>
       </div>

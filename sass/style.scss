@@ -134,6 +134,10 @@ body {
   font-family: sans-serif;
 }
 
+#main {
+  position: relative;
+}
+
 #google-map {
   width: 100vw;
   height: 100vh;
@@ -151,6 +155,17 @@ body {
       font-size: 1.25em;
     }
   }
+}
+
+.zenefits {
+  color: white !important;
+}
+
+.navbar {
+  width: 100%;
+  z-index: 100;
+  position: absolute;
+  top: 0;
 }
 
 // .map-window {
