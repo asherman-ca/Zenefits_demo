@@ -38,14 +38,21 @@ class App extends React.Component {
           style={customStyles}
         >
           <div className="modal-container">
-            <div className="container">
-              <h1>Zenefits UI Demo</h1>
-              <p>produced by Alex Sherman</p>
-            </div>
+              <div className="top">
+                <div>
+                  Zenefits UI Demo
+                </div>
+                <button onClick={this.closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="bottom">produced by Alex Sherman</div>
+              <div className="buttons">
+              <button type="button" onClick={this.closeModal} className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
           </div>
         </Modal>
         <section id="main-section">
-          {/* <Header /> */}
           <Map />
         </section>
       </div>

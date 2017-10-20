@@ -41367,11 +41367,11 @@
 	        null,
 	        _react2.default.createElement(
 	          "nav",
-	          { className: "navbar navbar=expand-lg navbar-dark bg-dark justify-content-between" },
+	          { className: "navbar navbar-expand-lg navbar-dark bg-dark justify-content-between" },
 	          _react2.default.createElement(
 	            "a",
-	            { className: "navbar-brand zenefits" },
-	            "Zenefits UI Demo"
+	            { className: "navbar-brand" },
+	            _react2.default.createElement("img", { className: "zenefits-logo", src: "https://cdn.worldvectorlogo.com/logos/zenefits.svg" })
 	          ),
 	          _react2.default.createElement(
 	            "form",
@@ -41617,16 +41617,34 @@
 	            { className: 'modal-container' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'container' },
+	              { className: 'top' },
 	              _react2.default.createElement(
-	                'h1',
+	                'div',
 	                null,
 	                'Zenefits UI Demo'
 	              ),
 	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'produced by Alex Sherman'
+	                'button',
+	                { onClick: this.closeModal, type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { 'aria-hidden': 'true' },
+	                  '\xD7'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'bottom' },
+	              'produced by Alex Sherman'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'buttons' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', onClick: this.closeModal, className: 'btn btn-secondary', 'data-dismiss': 'modal' },
+	                'Close'
 	              )
 	            )
 	          )
@@ -41665,8 +41683,6 @@
 	    bottom: "auto",
 	    marginRight: "-50%",
 	    transform: "translate(-50%, -50%)",
-	    padding: "40px",
-	    borderRadius: "2px",
 	    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
 	    width: "400px"
 	  }

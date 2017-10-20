@@ -134,18 +134,25 @@ body {
 
 .modal-container {
   font-weight: bold;
-  display: flex; }
-  .modal-container .container h1 {
-    margin-bottom: .5em;
-    font-size: 2em; }
-  .modal-container .container p {
-    font-size: 1.25em; }
+  display: flex;
+  flex-direction: column;
+  border-radius: .3rem; }
+  .modal-container .top {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    border-bottom: 1px solid #e9ecef; }
+  .modal-container .bottom {
+    padding: 10px;
+    font-size: 1.25em;
+    border-bottom: 1px solid #e9ecef; }
+  .modal-container .buttons {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end; }
 
-.zenefits {
-  color: white !important; }
-
-.navbar {
-  width: 100%;
-  z-index: 100;
-  position: absolute;
-  top: 0; }
+.zenefits-logo {
+  height: 40px;
+  width: 200px; }
