@@ -8,7 +8,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between">
         <a className="navbar-brand">
             <img className="zenefits-logo" src="https://cdn.worldvectorlogo.com/logos/zenefits.svg"/>
         </a>
