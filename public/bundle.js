@@ -22338,11 +22338,11 @@
 	
 	var _places_container2 = _interopRequireDefault(_places_container);
 	
-	var _places_detail_container = __webpack_require__(/*! ../places_detail/places_detail_container */ 300);
+	var _places_detail_container = __webpack_require__(/*! ../places_detail/places_detail_container */ 298);
 	
 	var _places_detail_container2 = _interopRequireDefault(_places_detail_container);
 	
-	var _header_container = __webpack_require__(/*! ../header/header_container */ 302);
+	var _header_container = __webpack_require__(/*! ../header/header_container */ 300);
 	
 	var _header_container2 = _interopRequireDefault(_header_container);
 	
@@ -31926,90 +31926,6 @@
 
 /***/ }),
 /* 298 */
-/*!*****************************************!*\
-  !*** ./src/actions/location_actions.js ***!
-  \*****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receiveLocations = exports.requestLocations = exports.RECEIVE_LOCATIONS = undefined;
-	
-	var _location_util = __webpack_require__(/*! ../util/location_util */ 299);
-	
-	var LocationUtil = _interopRequireWildcard(_location_util);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
-	
-	var requestLocations = exports.requestLocations = function requestLocations(string) {
-	  return LocationUtil.fetchLocations(string);
-	};
-	
-	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
-	  return {
-	    type: RECEIVE_LOCATIONS,
-	    locations: locations
-	  };
-	};
-
-/***/ }),
-/* 299 */
-/*!***********************************!*\
-  !*** ./src/util/location_util.js ***!
-  \***********************************/
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// import ReactDOM from 'react-dom';
-	
-	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
-	
-	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
-	  return {
-	    type: RECEIVE_LOCATIONS,
-	    locations: locations
-	  };
-	};
-	
-	var fetchLocations = exports.fetchLocations = function fetchLocations(string) {
-	  return function (dispatch) {
-	    // const map = ReactDOM.findDOMNode(this.refs.map);
-	    var map = document.getElementById('google-map');
-	    var latlng = new google.maps.LatLng(37.7749, -122.4194);
-	
-	    function callback(results, status) {
-	      if (status == google.maps.places.PlacesServiceStatus.OK) {
-	        // for (var i = 0; i < results.length; i++) {
-	        //   console.log(results[i]);
-	        // }
-	        // console.log(results);
-	        // return results;
-	        dispatch(receiveLocations(results));
-	        var options = {
-	          center: latlng,
-	          zoom: 12
-	        };
-	        this.map = new google.maps.Map(map, options);
-	      }
-	    }
-	
-	    var request = { location: latlng, radius: '500', keyword: string };
-	    var service = new google.maps.places.PlacesService(map);
-	    service.nearbySearch(request, callback);
-	  };
-	};
-
-/***/ }),
-/* 300 */
 /*!*****************************************************************!*\
   !*** ./src/components/places_detail/places_detail_container.js ***!
   \*****************************************************************/
@@ -32023,7 +31939,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
 	
-	var _places_detail = __webpack_require__(/*! ./places_detail */ 301);
+	var _places_detail = __webpack_require__(/*! ./places_detail */ 299);
 	
 	var _places_detail2 = _interopRequireDefault(_places_detail);
 	
@@ -32038,7 +31954,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places_detail2.default);
 
 /***/ }),
-/* 301 */
+/* 299 */
 /*!*******************************************************!*\
   !*** ./src/components/places_detail/places_detail.js ***!
   \*******************************************************/
@@ -32109,7 +32025,7 @@
 	exports.default = PlacesDetail;
 
 /***/ }),
-/* 302 */
+/* 300 */
 /*!***************************************************!*\
   !*** ./src/components/header/header_container.js ***!
   \***************************************************/
@@ -32123,11 +32039,11 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
 	
-	var _header = __webpack_require__(/*! ./header */ 303);
+	var _header = __webpack_require__(/*! ./header */ 301);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
-	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 298);
+	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 302);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32148,7 +32064,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_header2.default);
 
 /***/ }),
-/* 303 */
+/* 301 */
 /*!*****************************************!*\
   !*** ./src/components/header/header.js ***!
   \*****************************************/
@@ -32239,6 +32155,91 @@
 	exports.default = Header;
 
 /***/ }),
+/* 302 */
+/*!*****************************************!*\
+  !*** ./src/actions/location_actions.js ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receiveLocations = exports.requestLocations = exports.RECEIVE_LOCATIONS = undefined;
+	
+	var _location_util = __webpack_require__(/*! ../util/location_util */ 303);
+	
+	var LocationUtil = _interopRequireWildcard(_location_util);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
+	
+	var requestLocations = exports.requestLocations = function requestLocations(string) {
+	  return LocationUtil.fetchLocations(string);
+	};
+	
+	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
+	  return {
+	    type: RECEIVE_LOCATIONS,
+	    locations: locations
+	  };
+	};
+
+/***/ }),
+/* 303 */
+/*!***********************************!*\
+  !*** ./src/util/location_util.js ***!
+  \***********************************/
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// import ReactDOM from 'react-dom';
+	
+	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
+	
+	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
+	  return {
+	    type: RECEIVE_LOCATIONS,
+	    locations: locations
+	  };
+	};
+	
+	var fetchLocations = exports.fetchLocations = function fetchLocations(string) {
+	  return function (dispatch) {
+	    // const map = ReactDOM.findDOMNode(this.refs.map);
+	    var map = document.getElementById('google-map');
+	    var latlng = new google.maps.LatLng(37.7749, -122.4194);
+	
+	    function callback(results, status) {
+	      if (status == google.maps.places.PlacesServiceStatus.OK) {
+	        // for (var i = 0; i < results.length; i++) {
+	        //   console.log(results[i]);
+	        // }
+	        // console.log(results);
+	        // return results;
+	        dispatch(receiveLocations(results));
+	        var options = {
+	          center: latlng,
+	          zoom: 12
+	        };
+	        var _map = document.getElementById('google-map');
+	        new google.maps.Map(_map, options);
+	      }
+	    }
+	
+	    var request = { location: latlng, radius: '500', keyword: string };
+	    var service = new google.maps.places.PlacesService(map);
+	    service.nearbySearch(request, callback);
+	  };
+	};
+
+/***/ }),
 /* 304 */
 /*!**************************************!*\
   !*** ./src/components/core/store.js ***!
@@ -32310,7 +32311,7 @@
 	  value: true
 	});
 	
-	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 298);
+	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 302);
 	
 	var _defaultState = {
 	  locations: ['default']

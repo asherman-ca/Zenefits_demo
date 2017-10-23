@@ -24,7 +24,8 @@ export const fetchLocations = string => dispatch => {
         center: latlng,
         zoom: 12
       };
-      this.map = new google.maps.Map(map, options);
+      let map = document.getElementById('google-map');
+      new google.maps.Map(map, options);
     }
   }
 
