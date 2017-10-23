@@ -156,3 +156,12 @@ body {
 .zenefits-logo {
   height: 40px;
   width: 200px; }
+
+.places-tron {
+  position: absolute;
+  z-index: 10;
+  top: 95px;
+  left: 25px;
+  padding: 10px;
+  background: white;
+  border-radius: 2px; }

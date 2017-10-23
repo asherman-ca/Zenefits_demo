@@ -3,13 +3,15 @@ import Modal from 'react-modal';
 import Map from '../core/map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
+import { keys } from 'lodash';
 
 class Places extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      modalIsOpen: true
+      modalIsOpen: true,
+      loading: true
     };
 
     autoBind(this);
@@ -25,9 +27,23 @@ class Places extends React.Component {
 
   componentWillReceiveProps(newProps) {
     console.log(newProps);
+    this.setState({ loading: !this.state.loading });
+
   }
 
   render(){
+
+    let locationResults;
+    if (this.props.locations.length > 0) {
+      locationResults = (
+        <div> 
+          {this.props.locations.map(location => (
+            <div>{location.name}</div>
+          ))}
+        </div>  
+      );
+    }
+
     return(
       <div id="main">
         <Modal 
@@ -51,9 +67,10 @@ class Places extends React.Component {
               </div>
           </div>
         </Modal>
-        <section id="main-section">
-          <Map />
-        </section>
+        <div className="places-tron">
+          {locationResults}
+        </div>  
+        <Map />
       </div>
     );
   }
