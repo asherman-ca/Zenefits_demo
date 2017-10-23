@@ -23,9 +23,9 @@ class App extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-  afterOpenModal() {
-    this.subtitle.style.color = '#f00';
-  }
+  // afterOpenModal() {
+  //   this.subtitle.style.color = '#f00';
+  // }
 
   render(){
     

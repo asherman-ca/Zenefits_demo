@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     <Root store={store} />,
     document.getElementById('root')
   );
-  console.log(store);
   window.store = store;
   window.s = store.getState;
+  // console.log(store);
 });
 
 

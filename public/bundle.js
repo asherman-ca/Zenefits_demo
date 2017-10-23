@@ -72,9 +72,9 @@
 	  var store = (0, _store2.default)();
 	
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), document.getElementById('root'));
-	  console.log(store);
 	  window.store = store;
 	  window.s = store.getState;
+	  // console.log(store);
 	});
 
 /***/ }),
@@ -22351,7 +22351,6 @@
 	var Root = function Root(_ref) {
 	  var store = _ref.store;
 	
-	
 	  return _react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
@@ -30406,10 +30405,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps(state) {
-	  locations: state.locations;
-	};
-	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    requestLocations: function requestLocations(string) {
@@ -30418,7 +30413,7 @@
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places2.default);
+	exports.default = (0, _reactRedux.connect)(mapDispatchToProps)(_places2.default);
 
 /***/ }),
 /* 281 */
@@ -30489,11 +30484,11 @@
 	    value: function closeModal() {
 	      this.setState({ modalIsOpen: false });
 	    }
-	  }, {
-	    key: 'afterOpenModal',
-	    value: function afterOpenModal() {
-	      this.subtitle.style.color = '#f00';
-	    }
+	
+	    // afterOpenModal() {
+	    //   this.subtitle.style.color = '#f00';
+	    // }
+	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -32125,7 +32120,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps() {};
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    locations: state.location
+	  };
+	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
