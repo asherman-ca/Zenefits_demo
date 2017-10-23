@@ -30401,16 +30401,10 @@
 	
 	var _places2 = _interopRequireDefault(_places);
 	
-	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 298);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    requestLocations: function requestLocations(string) {
-	      return dispatch((0, _location_actions.requestLocations)(string));
-	    }
-	  };
+	var mapDispatchToProps = function mapDispatchToProps() {
+	  return {};
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapDispatchToProps)(_places2.default);
@@ -31790,6 +31784,18 @@
 	
 	      // this.props.businessPositions.forEach(business => this.addBusiness(business));
 	    }
+	
+	    // componentWillReceiveProps() {
+	    //   const map = ReactDOM.findDOMNode(this.refs.map);
+	    //   const latlng = new google.maps.LatLng(37.7749, -122.4194);
+	    //   const options = {
+	    //     center: latlng,
+	    //     zoom: 12
+	    //   };
+	
+	    //   this.map = new google.maps.Map(map, options);
+	    // }
+	
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -31988,6 +31994,11 @@
 	        // console.log(results);
 	        // return results;
 	        dispatch(receiveLocations(results));
+	        var options = {
+	          center: latlng,
+	          zoom: 12
+	        };
+	        this.map = new google.maps.Map(map, options);
 	      }
 	    }
 	
@@ -32143,7 +32154,7 @@
   \*****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -32154,6 +32165,10 @@
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAutobind = __webpack_require__(/*! react-autobind */ 295);
+	
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32169,37 +32184,47 @@
 	  function Header(props) {
 	    _classCallCheck(this, Header);
 	
-	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+	
+	    _this.state = {
+	      searchString: 'chicken'
+	    };
+	
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Header, [{
-	    key: "render",
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.requestLocations(this.state.searchString);
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 	
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "nav",
-	          { className: "navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between" },
+	          'nav',
+	          { className: 'navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between' },
 	          _react2.default.createElement(
-	            "a",
-	            { className: "navbar-brand" },
-	            _react2.default.createElement("img", { onClick: function onClick() {
+	            'a',
+	            { className: 'navbar-brand' },
+	            _react2.default.createElement('img', { onClick: function onClick() {
 	                return console.log(_this2.props.locations);
-	              }, className: "zenefits-logo", src: "https://cdn.worldvectorlogo.com/logos/zenefits.svg" })
+	              }, className: 'zenefits-logo', src: 'https://cdn.worldvectorlogo.com/logos/zenefits.svg' })
 	          ),
 	          _react2.default.createElement(
-	            "form",
-	            { className: "form-inline" },
-	            _react2.default.createElement("input", { className: "form-control mr-sm-2", type: "text", placeholder: "Search", "aria-label": "Search" }),
+	            'form',
+	            { className: 'form-inline' },
+	            _react2.default.createElement('input', { className: 'form-control mr-sm-2', type: 'text', placeholder: 'Search', 'aria-label': 'Search' }),
 	            _react2.default.createElement(
-	              "button",
-	              { onClick: function onClick() {
-	                  return _this2.props.requestLocations('chicken');
-	                }, className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
-	              "Search"
+	              'button',
+	              { onClick: this.handleClick, className: 'btn btn-outline-success my-2 my-sm-0', type: 'submit' },
+	              'Search'
 	            )
 	          )
 	        ),

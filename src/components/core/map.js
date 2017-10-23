@@ -32,6 +32,17 @@ class MapItem extends React.Component {
     // this.props.businessPositions.forEach(business => this.addBusiness(business));
   }
 
+  // componentWillReceiveProps() {
+  //   const map = ReactDOM.findDOMNode(this.refs.map);
+  //   const latlng = new google.maps.LatLng(37.7749, -122.4194);
+  //   const options = {
+  //     center: latlng,
+  //     zoom: 12
+  //   };
+
+  //   this.map = new google.maps.Map(map, options);
+  // }
+
   render() {
     return (
       <div ref="map" id="google-map" />

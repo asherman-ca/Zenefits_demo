@@ -20,6 +20,11 @@ export const fetchLocations = string => dispatch => {
       // console.log(results);
       // return results;
       dispatch(receiveLocations(results));
+      const options = {
+        center: latlng,
+        zoom: 12
+      };
+      this.map = new google.maps.Map(map, options);
     }
   }
 

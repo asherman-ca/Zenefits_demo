@@ -1,8 +1,19 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      searchString: 'chicken'
+    };
+
+    autoBind(this);
+  }
+
+  handleClick() {
+    this.props.requestLocations(this.state.searchString);
   }
 
   render() {
@@ -14,7 +25,7 @@ class Header extends React.Component {
         </a>
         <form className="form-inline">
           <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-            <button onClick={() => this.props.requestLocations('chicken')} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button onClick={this.handleClick} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </nav>
         {this.props.children}
