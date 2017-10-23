@@ -61,16 +61,20 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(/*! ./components/core/store */ 302);
+	var _store = __webpack_require__(/*! ./components/core/store */ 304);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/* global document, window */
 	document.addEventListener('DOMContentLoaded', function () {
 	  var store = (0, _store2.default)();
 	
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), document.getElementById('root'));
+	  console.log(store);
+	  window.store = store;
+	  window.s = store.getState;
 	});
 
 /***/ }),
@@ -22334,11 +22338,11 @@
 	
 	var _places_container2 = _interopRequireDefault(_places_container);
 	
-	var _places_detail_container = __webpack_require__(/*! ../places_detail/places_detail_container */ 298);
+	var _places_detail_container = __webpack_require__(/*! ../places_detail/places_detail_container */ 300);
 	
 	var _places_detail_container2 = _interopRequireDefault(_places_detail_container);
 	
-	var _header_container = __webpack_require__(/*! ../header/header_container */ 300);
+	var _header_container = __webpack_require__(/*! ../header/header_container */ 302);
 	
 	var _header_container2 = _interopRequireDefault(_header_container);
 	
@@ -30398,7 +30402,7 @@
 	
 	var _places2 = _interopRequireDefault(_places);
 	
-	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 307);
+	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 298);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31769,7 +31773,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var map = _reactDom2.default.findDOMNode(this.refs.map);
-	      var latlng = new google.maps.LatLng(39.305, -76.617);
+	      var latlng = new google.maps.LatLng(37.7749, -122.4194);
 	      var options = {
 	        center: latlng,
 	        zoom: 12
@@ -31777,17 +31781,17 @@
 	
 	      this.map = new google.maps.Map(map, options);
 	
-	      function callback(results, status) {
-	        if (status == google.maps.places.PlacesServiceStatus.OK) {
-	          for (var i = 0; i < results.length; i++) {
-	            console.log(results[i]);
-	          }
-	        }
-	      }
+	      // function callback(results, status) {
+	      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+	      //     for (var i = 0; i < results.length; i++) {
+	      //       console.log(results[i]);
+	      //     }
+	      //   }
+	      // }
 	
-	      var request = { query: 'chicken' };
-	      var service = new google.maps.places.PlacesService(this.map);
-	      service.textSearch(request, callback);
+	      // let request = { location: latlng, radius: '500', keyword: 'dog' };
+	      // let service = new google.maps.places.PlacesService(this.map);
+	      // service.nearbySearch(request, callback);
 	
 	      // this.props.businessPositions.forEach(business => this.addBusiness(business));
 	    }
@@ -31921,6 +31925,85 @@
 
 /***/ }),
 /* 298 */
+/*!*****************************************!*\
+  !*** ./src/actions/location_actions.js ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receiveLocations = exports.requestLocations = exports.RECEIVE_LOCATIONS = undefined;
+	
+	var _location_util = __webpack_require__(/*! ../util/location_util */ 299);
+	
+	var LocationUtil = _interopRequireWildcard(_location_util);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
+	
+	var requestLocations = exports.requestLocations = function requestLocations(string) {
+	  return LocationUtil.fetchLocations(string);
+	};
+	
+	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
+	  return {
+	    type: RECEIVE_LOCATIONS,
+	    locations: locations
+	  };
+	};
+
+/***/ }),
+/* 299 */
+/*!***********************************!*\
+  !*** ./src/util/location_util.js ***!
+  \***********************************/
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// import ReactDOM from 'react-dom';
+	
+	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
+	
+	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
+	  return {
+	    type: RECEIVE_LOCATIONS,
+	    locations: locations
+	  };
+	};
+	
+	var fetchLocations = exports.fetchLocations = function fetchLocations(string) {
+	  return function (dispatch) {
+	    // const map = ReactDOM.findDOMNode(this.refs.map);
+	    var map = document.getElementById('google-map');
+	    var latlng = new google.maps.LatLng(37.7749, -122.4194);
+	
+	    function callback(results, status) {
+	      if (status == google.maps.places.PlacesServiceStatus.OK) {
+	        // for (var i = 0; i < results.length; i++) {
+	        //   console.log(results[i]);
+	        // }
+	        // console.log(results);
+	        // return results;
+	        dispatch(receiveLocations(results));
+	      }
+	    }
+	
+	    var request = { location: latlng, radius: '500', keyword: string };
+	    var service = new google.maps.places.PlacesService(map);
+	    service.nearbySearch(request, callback);
+	  };
+	};
+
+/***/ }),
+/* 300 */
 /*!*****************************************************************!*\
   !*** ./src/components/places_detail/places_detail_container.js ***!
   \*****************************************************************/
@@ -31934,7 +32017,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
 	
-	var _places_detail = __webpack_require__(/*! ./places_detail */ 299);
+	var _places_detail = __webpack_require__(/*! ./places_detail */ 301);
 	
 	var _places_detail2 = _interopRequireDefault(_places_detail);
 	
@@ -31949,7 +32032,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places_detail2.default);
 
 /***/ }),
-/* 299 */
+/* 301 */
 /*!*******************************************************!*\
   !*** ./src/components/places_detail/places_detail.js ***!
   \*******************************************************/
@@ -32020,7 +32103,7 @@
 	exports.default = PlacesDetail;
 
 /***/ }),
-/* 300 */
+/* 302 */
 /*!***************************************************!*\
   !*** ./src/components/header/header_container.js ***!
   \***************************************************/
@@ -32034,22 +32117,28 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
 	
-	var _header = __webpack_require__(/*! ./header */ 301);
+	var _header = __webpack_require__(/*! ./header */ 303);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
+	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 298);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps() {
-	  return {};
-	};
+	var mapStateToProps = function mapStateToProps() {};
 	
-	var mapDispatchToProps = function mapDispatchToProps() {};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    requestLocations: function requestLocations(string) {
+	      return dispatch((0, _location_actions.requestLocations)(string));
+	    }
+	  };
+	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_header2.default);
 
 /***/ }),
-/* 301 */
+/* 303 */
 /*!*****************************************!*\
   !*** ./src/components/header/header.js ***!
   \*****************************************/
@@ -32087,6 +32176,8 @@
 	  _createClass(Header, [{
 	    key: "render",
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -32096,7 +32187,9 @@
 	          _react2.default.createElement(
 	            "a",
 	            { className: "navbar-brand" },
-	            _react2.default.createElement("img", { className: "zenefits-logo", src: "https://cdn.worldvectorlogo.com/logos/zenefits.svg" })
+	            _react2.default.createElement("img", { onClick: function onClick() {
+	                return console.log(_this2.props.locations);
+	              }, className: "zenefits-logo", src: "https://cdn.worldvectorlogo.com/logos/zenefits.svg" })
 	          ),
 	          _react2.default.createElement(
 	            "form",
@@ -32104,7 +32197,9 @@
 	            _react2.default.createElement("input", { className: "form-control mr-sm-2", type: "text", placeholder: "Search", "aria-label": "Search" }),
 	            _react2.default.createElement(
 	              "button",
-	              { className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
+	              { onClick: function onClick() {
+	                  return _this2.props.requestLocations('chicken');
+	                }, className: "btn btn-outline-success my-2 my-sm-0", type: "submit" },
 	              "Search"
 	            )
 	          )
@@ -32120,7 +32215,7 @@
 	exports.default = Header;
 
 /***/ }),
-/* 302 */
+/* 304 */
 /*!**************************************!*\
   !*** ./src/components/core/store.js ***!
   \**************************************/
@@ -32132,13 +32227,13 @@
 	  value: true
 	});
 	
-	var _root_reducer = __webpack_require__(/*! ../../reducers/root_reducer */ 303);
+	var _root_reducer = __webpack_require__(/*! ../../reducers/root_reducer */ 305);
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
 	var _redux = __webpack_require__(/*! redux */ 198);
 	
-	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 306);
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 307);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -32152,7 +32247,7 @@
 	exports.default = configureStore;
 
 /***/ }),
-/* 303 */
+/* 305 */
 /*!**************************************!*\
   !*** ./src/reducers/root_reducer.js ***!
   \**************************************/
@@ -32164,7 +32259,7 @@
 	  value: true
 	});
 	
-	var _location_reducer = __webpack_require__(/*! ./location_reducer */ 304);
+	var _location_reducer = __webpack_require__(/*! ./location_reducer */ 306);
 	
 	var _location_reducer2 = _interopRequireDefault(_location_reducer);
 	
@@ -32179,7 +32274,7 @@
 	exports.default = rootReducer;
 
 /***/ }),
-/* 304 */
+/* 306 */
 /*!******************************************!*\
   !*** ./src/reducers/location_reducer.js ***!
   \******************************************/
@@ -32191,10 +32286,10 @@
 	  value: true
 	});
 	
-	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 307);
+	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 298);
 	
 	var _defaultState = {
-	  locations: []
+	  locations: ['default']
 	};
 	
 	var locationReducer = function locationReducer() {
@@ -32213,8 +32308,7 @@
 	exports.default = locationReducer;
 
 /***/ }),
-/* 305 */,
-/* 306 */
+/* 307 */
 /*!************************************!*\
   !*** ./~/redux-thunk/lib/index.js ***!
   \************************************/
@@ -32243,80 +32337,6 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
-
-/***/ }),
-/* 307 */
-/*!*****************************************!*\
-  !*** ./src/actions/location_actions.js ***!
-  \*****************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receiveLocations = exports.requestLocations = exports.RECEIVE_LOCATIONS = undefined;
-	
-	var _location_util = __webpack_require__(/*! ../util/location_util */ 308);
-	
-	var LocationUtil = _interopRequireWildcard(_location_util);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
-	
-	var requestLocations = exports.requestLocations = function requestLocations(string) {
-	  return function (dispatch) {
-	    return LocationUtil.fetchLocations(string).then(function (data) {
-	      return dispatch(receiveLocations(data));
-	    });
-	  };
-	};
-	
-	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
-	  return {
-	    type: RECEIVE_LOCATIONS,
-	    locations: locations
-	  };
-	};
-
-/***/ }),
-/* 308 */
-/*!***********************************!*\
-  !*** ./src/util/location_util.js ***!
-  \***********************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.fetchLocations = undefined;
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 37);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var fetchLocations = exports.fetchLocations = function fetchLocations(string) {
-	  var map = _reactDom2.default.findDOMNode(undefined.refs.map);
-	
-	  function callback(results, status) {
-	    if (status == google.maps.places.PlacesServiceStatus.OK) {
-	      // for (var i = 0; i < results.length; i++) {
-	      //   console.log(results[i]);
-	      // }
-	      return results;
-	    }
-	  }
-	
-	  var request = { query: string };
-	  var service = new google.maps.places.PlacesService(undefined.map);
-	  service.textSearch(request, callback);
-	};
 
 /***/ })
 /******/ ]);

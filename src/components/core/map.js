@@ -9,7 +9,7 @@ class MapItem extends React.Component {
 
   componentDidMount() {
     const map = ReactDOM.findDOMNode(this.refs.map);
-    const latlng = new google.maps.LatLng(39.305, -76.617);
+    const latlng = new google.maps.LatLng(37.7749, -122.4194);
     const options = {
       center: latlng,
       zoom: 12
@@ -17,17 +17,17 @@ class MapItem extends React.Component {
 
     this.map = new google.maps.Map(map, options);
 
-    function callback(results, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          console.log(results[i]);
-        }
-      }
-    }
+    // function callback(results, status) {
+    //   if (status == google.maps.places.PlacesServiceStatus.OK) {
+    //     for (var i = 0; i < results.length; i++) {
+    //       console.log(results[i]);
+    //     }
+    //   }
+    // }
    
-    let request = { query: 'chicken' };
-    let service = new google.maps.places.PlacesService(this.map);
-    service.textSearch(request, callback);
+    // let request = { location: latlng, radius: '500', keyword: 'dog' };
+    // let service = new google.maps.places.PlacesService(this.map);
+    // service.nearbySearch(request, callback);
 
     // this.props.businessPositions.forEach(business => this.addBusiness(business));
   }
