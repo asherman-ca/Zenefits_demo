@@ -6,14 +6,19 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      searchString: 'chicken'
+      searchString: ''
     };
 
     autoBind(this);
   }
 
-  handleClick() {
+  handleSubmit(e) {
+    e.preventDefault();
     this.props.requestLocations(this.state.searchString);
+  }
+
+  handleChange(e) {
+    this.setState({ searchString: e.target.value });
   }
 
   render() {
@@ -23,9 +28,9 @@ class Header extends React.Component {
         <a className="navbar-brand">
             <img onClick={() => console.log(this.props.locations)} className="zenefits-logo" src="https://cdn.worldvectorlogo.com/logos/zenefits.svg"/>
         </a>
-        <form className="form-inline">
-          <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-            <button onClick={this.handleClick} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form onSubmit={this.handleSubmit} className="form-inline">
+          <input value={this.state.searchString} onChange={this.handleChange} className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </nav>
         {this.props.children}

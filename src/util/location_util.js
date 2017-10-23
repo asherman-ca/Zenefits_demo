@@ -26,6 +26,13 @@ export const fetchLocations = string => dispatch => {
       };
       let map = document.getElementById('google-map');
       new google.maps.Map(map, options);
+    } else {
+      const options = {
+        center: latlng,
+        zoom: 12
+      };
+      let map = document.getElementById('google-map');
+      new google.maps.Map(map, options);
     }
   }
 

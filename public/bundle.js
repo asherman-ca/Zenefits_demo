@@ -30403,11 +30403,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    locations: state.location
+	  };
+	};
+	
 	var mapDispatchToProps = function mapDispatchToProps() {
 	  return {};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapDispatchToProps)(_places2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places2.default);
 
 /***/ }),
 /* 281 */
@@ -30452,13 +30458,13 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+	var Places = function (_React$Component) {
+	  _inherits(Places, _React$Component);
 	
-	  function App(props) {
-	    _classCallCheck(this, App);
+	  function Places(props) {
+	    _classCallCheck(this, Places);
 	
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Places.__proto__ || Object.getPrototypeOf(Places)).call(this, props));
 	
 	    _this.state = {
 	      modalIsOpen: true
@@ -30468,7 +30474,7 @@
 	    return _this;
 	  }
 	
-	  _createClass(App, [{
+	  _createClass(Places, [{
 	    key: 'openModal',
 	    value: function openModal() {
 	      this.setState({ modalIsOpen: true });
@@ -30478,15 +30484,9 @@
 	    value: function closeModal() {
 	      this.setState({ modalIsOpen: false });
 	    }
-	
-	    // afterOpenModal() {
-	    //   this.subtitle.style.color = '#f00';
-	    // }
-	
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'main' },
@@ -30544,10 +30544,10 @@
 	    }
 	  }]);
 	
-	  return App;
+	  return Places;
 	}(_react2.default.Component);
 	
-	exports.default = App;
+	exports.default = Places;
 
 /***/ }),
 /* 282 */
@@ -32103,7 +32103,7 @@
 	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 	
 	    _this.state = {
-	      searchString: 'chicken'
+	      searchString: ''
 	    };
 	
 	    (0, _reactAutobind2.default)(_this);
@@ -32111,9 +32111,15 @@
 	  }
 	
 	  _createClass(Header, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
 	      this.props.requestLocations(this.state.searchString);
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      this.setState({ searchString: e.target.value });
 	    }
 	  }, {
 	    key: 'render',
@@ -32135,11 +32141,11 @@
 	          ),
 	          _react2.default.createElement(
 	            'form',
-	            { className: 'form-inline' },
-	            _react2.default.createElement('input', { className: 'form-control mr-sm-2', type: 'text', placeholder: 'Search', 'aria-label': 'Search' }),
+	            { onSubmit: this.handleSubmit, className: 'form-inline' },
+	            _react2.default.createElement('input', { value: this.state.searchString, onChange: this.handleChange, className: 'form-control mr-sm-2', type: 'text', placeholder: 'Search', 'aria-label': 'Search' }),
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.handleClick, className: 'btn btn-outline-success my-2 my-sm-0', type: 'submit' },
+	              { className: 'btn btn-outline-success my-2 my-sm-0', type: 'submit' },
 	              'Search'
 	            )
 	          )
@@ -32230,6 +32236,13 @@
 	        };
 	        var _map = document.getElementById('google-map');
 	        new google.maps.Map(_map, options);
+	      } else {
+	        var _options = {
+	          center: latlng,
+	          zoom: 12
+	        };
+	        var _map2 = document.getElementById('google-map');
+	        new google.maps.Map(_map2, _options);
 	      }
 	    }
 	

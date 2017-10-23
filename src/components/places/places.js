@@ -4,7 +4,7 @@ import Map from '../core/map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
 
-class App extends React.Component {
+class Places extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,12 +23,7 @@ class App extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-  // afterOpenModal() {
-  //   this.subtitle.style.color = '#f00';
-  // }
-
   render(){
-    
     return(
       <div id="main">
         <Modal 
@@ -60,4 +55,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Places;
