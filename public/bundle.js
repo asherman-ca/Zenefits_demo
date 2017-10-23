@@ -30485,6 +30485,11 @@
 	      this.setState({ modalIsOpen: false });
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      console.log(newProps);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(

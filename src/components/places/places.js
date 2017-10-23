@@ -23,6 +23,10 @@ class Places extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+  }
+
   render(){
     return(
       <div id="main">
