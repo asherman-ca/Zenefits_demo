@@ -1,7 +1,7 @@
 import { RECEIVE_LOCATIONS } from '../actions/location_actions';
 
 const _defaultState = {
-  locations: ['default']
+  locations: []
 };
 
 const locationReducer = (state = _defaultState, action) => {

@@ -24,7 +24,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark justify-content-between">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
         <a className="navbar-brand">
             <img onClick={() => console.log(this.props.locations)} className="zenefits-logo" src="https://cdn.worldvectorlogo.com/logos/zenefits.svg"/>
         </a>

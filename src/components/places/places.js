@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import Map from '../core/map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
-import { keys } from 'lodash';
 
 class Places extends React.Component {
   constructor(props) {
@@ -34,12 +33,26 @@ class Places extends React.Component {
   render(){
 
     let locationResults;
+    console.log(this.props.locations);
     if (this.props.locations.length > 0) {
       locationResults = (
-        <div> 
-          {this.props.locations.map(location => (
-            <div>{location.name}</div>
-          ))}
+        <div className="places-tron">
+          <ul className="list-group"> 
+            {this.props.locations.map(location => (
+              <li className="list-group-item" key={location.id}>
+                <p>
+                  <a data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`}>
+                    {location.name}
+                  </a>
+                </p>
+                <div className="collapse" id={`${location.id}`}>
+                  <div className="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>  
       );
     }
@@ -67,9 +80,7 @@ class Places extends React.Component {
               </div>
           </div>
         </Modal>
-        <div className="places-tron">
-          {locationResults}
-        </div>  
+        {locationResults}
         <Map />
       </div>
     );
