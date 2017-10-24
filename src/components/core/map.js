@@ -9,10 +9,10 @@ class MapItem extends React.Component {
 
   componentDidMount() {
     const map = ReactDOM.findDOMNode(this.refs.map);
-    const latlng = new google.maps.LatLng(37.7749, -122.4194);
+    // const latlng = new google.maps.LatLng(37.7749, -122.4194);
     const options = {
-      center: latlng,
-      zoom: 12
+      center: this.props.center,
+      zoom: this.props.zoom
     };
 
     this.map = new google.maps.Map(map, options);

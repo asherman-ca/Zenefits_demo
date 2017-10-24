@@ -30488,7 +30488,6 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
-	      console.log(newProps);
 	      this.setState({ loading: !this.state.loading });
 	    }
 	  }, {
@@ -30513,7 +30512,7 @@
 	                  null,
 	                  _react2.default.createElement(
 	                    'a',
-	                    { 'data-toggle': 'collapse', href: '#' + location.id, 'aria-expanded': 'false', 'aria-controls': '' + location.id },
+	                    { className: 'location-item', 'data-toggle': 'collapse', href: '#' + location.id, 'aria-expanded': 'false', 'aria-controls': '' + location.id },
 	                    location.name
 	                  )
 	                ),
@@ -30581,7 +30580,11 @@
 	          )
 	        ),
 	        locationResults,
-	        _react2.default.createElement(_map2.default, null)
+	        _react2.default.createElement(_map2.default, {
+	          zoom: 13,
+	          center: { lat: 37.780120, lng: -122.480507 },
+	          positions: this.props.locations
+	        })
 	      );
 	    }
 	  }]);
@@ -31804,10 +31807,10 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var map = _reactDom2.default.findDOMNode(this.refs.map);
-	      var latlng = new google.maps.LatLng(37.7749, -122.4194);
+	      // const latlng = new google.maps.LatLng(37.7749, -122.4194);
 	      var options = {
-	        center: latlng,
-	        zoom: 12
+	        center: this.props.center,
+	        zoom: this.props.zoom
 	      };
 	
 	      this.map = new google.maps.Map(map, options);
@@ -32188,7 +32191,7 @@
 	            _react2.default.createElement('input', { value: this.state.searchString, onChange: this.handleChange, className: 'form-control mr-sm-2', type: 'text', placeholder: 'Search', 'aria-label': 'Search' }),
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-outline-success my-2 my-sm-0', type: 'submit' },
+	              { className: 'btn btn-outline-secondary my-2 my-sm-0', type: 'submit' },
 	              'Search'
 	            )
 	          )
@@ -32248,8 +32251,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	// import ReactDOM from 'react-dom';
-	
 	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
 	
 	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
@@ -32261,34 +32262,20 @@
 	
 	var fetchLocations = exports.fetchLocations = function fetchLocations(string) {
 	  return function (dispatch) {
-	    // const map = ReactDOM.findDOMNode(this.refs.map);
 	    var map = document.getElementById('google-map');
-	    var latlng = new google.maps.LatLng(37.7749, -122.4194);
-	
+	    var latlng = { lat: 37.780120, lng: -122.480507 };
+	    var options = {
+	      center: latlng,
+	      zoom: 13
+	    };
 	    function callback(results, status) {
 	      if (status == google.maps.places.PlacesServiceStatus.OK) {
-	        // for (var i = 0; i < results.length; i++) {
-	        //   console.log(results[i]);
-	        // }
-	        // console.log(results);
-	        // return results;
 	        dispatch(receiveLocations(results));
-	        var options = {
-	          center: latlng,
-	          zoom: 12
-	        };
-	        var _map = document.getElementById('google-map');
-	        new google.maps.Map(_map, options);
+	        new google.maps.Map(map, options);
 	      } else {
-	        var _options = {
-	          center: latlng,
-	          zoom: 12
-	        };
-	        var _map2 = document.getElementById('google-map');
-	        new google.maps.Map(_map2, _options);
+	        new google.maps.Map(map, options);
 	      }
 	    }
-	
 	    var request = { location: latlng, radius: '500', keyword: string };
 	    var service = new google.maps.places.PlacesService(map);
 	    service.nearbySearch(request, callback);

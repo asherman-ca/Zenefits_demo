@@ -30,7 +30,7 @@ class Header extends React.Component {
         </a>
         <form onSubmit={this.handleSubmit} className="form-inline">
           <input value={this.state.searchString} onChange={this.handleChange} className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
       </nav>
         {this.props.children}

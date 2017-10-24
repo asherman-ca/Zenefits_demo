@@ -25,9 +25,7 @@ class Places extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
     this.setState({ loading: !this.state.loading });
-
   }
 
   render(){
@@ -41,7 +39,7 @@ class Places extends React.Component {
             {this.props.locations.map(location => (
               <li className="list-group-item" key={location.id}>
                 <p>
-                  <a data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`}>
+                  <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`}>
                     {location.name}
                   </a>
                 </p>
@@ -81,7 +79,11 @@ class Places extends React.Component {
           </div>
         </Modal>
         {locationResults}
-        <Map />
+        <Map 
+          zoom={13}
+          center={{ lat: 37.780120, lng: -122.480507 }}
+          positions={this.props.locations}
+          />
       </div>
     );
   }
