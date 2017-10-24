@@ -31,7 +31,6 @@ class Places extends React.Component {
   render(){
 
     let locationResults;
-    console.log(this.props.locations);
     if (this.props.locations.length > 0) {
       locationResults = (
         <div className="places-tron">

@@ -30495,7 +30495,6 @@
 	    value: function render() {
 	
 	      var locationResults = void 0;
-	      console.log(this.props.locations);
 	      if (this.props.locations.length > 0) {
 	        locationResults = _react2.default.createElement(
 	          'div',
@@ -31784,6 +31783,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _reactAutobind = __webpack_require__(/*! react-autobind */ 295);
+	
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+	
 	var _reactRouter = __webpack_require__(/*! react-router */ 225);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31800,12 +31803,17 @@
 	  function MapItem(props) {
 	    _classCallCheck(this, MapItem);
 	
-	    return _possibleConstructorReturn(this, (MapItem.__proto__ || Object.getPrototypeOf(MapItem)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (MapItem.__proto__ || Object.getPrototypeOf(MapItem)).call(this, props));
+	
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
 	  }
 	
 	  _createClass(MapItem, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+	
 	      var map = _reactDom2.default.findDOMNode(this.refs.map);
 	      // const latlng = new google.maps.LatLng(37.7749, -122.4194);
 	      var options = {
@@ -31814,20 +31822,28 @@
 	      };
 	
 	      this.map = new google.maps.Map(map, options);
+	      this.props.positions.locations.forEach(function (business) {
+	        return _this2.addBusiness(business);
+	      });
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var _this3 = this;
 	
-	      // function callback(results, status) {
-	      //   if (status == google.maps.places.PlacesServiceStatus.OK) {
-	      //     for (var i = 0; i < results.length; i++) {
-	      //       console.log(results[i]);
-	      //     }
-	      //   }
-	      // }
+	      var map = _reactDom2.default.findDOMNode(this.refs.map);
+	      var options = {
+	        center: nextProps.center,
+	        zoom: nextProps.zoom
+	      };
 	
-	      // let request = { location: latlng, radius: '500', keyword: 'dog' };
-	      // let service = new google.maps.places.PlacesService(this.map);
-	      // service.nearbySearch(request, callback);
-	
-	      // this.props.businessPositions.forEach(business => this.addBusiness(business));
+	      this.map = new google.maps.Map(map, options);
+	      if (nextProps.positions.length > 0) {
+	        nextProps.positions.forEach(function (business) {
+	          return _this3.addBusiness(business);
+	        });
+	      }
+	      // nextProps.positions.forEach(business => this.addBusiness(business));
 	    }
 	
 	    // componentWillReceiveProps() {
@@ -31841,6 +31857,55 @@
 	    //   this.map = new google.maps.Map(map, options);
 	    // }
 	
+	  }, {
+	    key: 'addBusiness',
+	    value: function addBusiness(business) {
+	      console.log(business);
+	      // const pos = new google.maps.LatLng(business.geometry.viewport.f.f, business.geometry.viewport.b.b);
+	      var pos = { lat: business.geometry.viewport.f.f, lng: business.geometry.viewport.b.b };
+	      var marker = new google.maps.Marker({
+	        position: pos,
+	        map: this.map
+	      });
+	
+	      this.addWindow(business, marker);
+	      marker.setAnimation(google.maps.Animation.DROP);
+	
+	      // marker.addListener('click', () => {
+	      //   this.props.router.push(`/businesses/${business.id}`);
+	      // });
+	    }
+	  }, {
+	    key: 'addWindow',
+	    value: function addWindow(business, marker) {
+	      var _this4 = this;
+	
+	      var windowString = "<div class='map-window'>" + ('<h1 class=\'map-name\'>' + business.name + '</h1>') + ('<h2>' + business.address + '</h2>') + "</div>";
+	      var window = new google.maps.InfoWindow({
+	        content: windowString,
+	        maxWidth: 200
+	      });
+	
+	      marker.addListener('mouseover', function () {
+	        window.open(_this4.map, marker);
+	      });
+	
+	      marker.addListener('mouseout', function () {
+	        window.close(_this4.map, marker);
+	      });
+	
+	      // hovering over html element
+	      var htmlElement = document.getElementById(business.id);
+	      if (htmlElement) {
+	        htmlElement.onmouseover = function () {
+	          window.open(_this4.map, marker);
+	        };
+	
+	        htmlElement.onmouseout = function () {
+	          window.close(_this4.map, marker);
+	        };
+	      }
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
