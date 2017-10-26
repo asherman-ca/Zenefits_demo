@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Places from './places';
 
 const mapStateToProps = state => ({
@@ -8,4 +9,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = () => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Places);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Places));

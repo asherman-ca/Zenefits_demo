@@ -18,7 +18,7 @@ class MapItem extends React.Component {
     };
 
     this.map = new google.maps.Map(map, options);
-    this.props.positions.locations.forEach(business => this.addBusiness(business));
+    // this.props.positions.locations.forEach(business => this.addBusiness(business));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,39 +29,23 @@ class MapItem extends React.Component {
     };
 
     this.map = new google.maps.Map(map, options);
+    
     if (nextProps.positions.length > 0) {
       nextProps.positions.forEach(business => this.addBusiness(business));
     }
     // nextProps.positions.forEach(business => this.addBusiness(business));
   }
 
-  // componentWillReceiveProps() {
-  //   const map = ReactDOM.findDOMNode(this.refs.map);
-  //   const latlng = new google.maps.LatLng(37.7749, -122.4194);
-  //   const options = {
-  //     center: latlng,
-  //     zoom: 12
-  //   };
-
-  //   this.map = new google.maps.Map(map, options);
-  // }
-
   addBusiness(business) {
-    console.log(business);
     // const pos = new google.maps.LatLng(business.geometry.viewport.f.f, business.geometry.viewport.b.b);
     const pos = { lat: business.geometry.viewport.f.f, lng: business.geometry.viewport.b.b };
     const marker = new google.maps.Marker({
       position: pos,
       map: this.map
     });
-
-    this.addWindow(business, marker);
     marker.setAnimation(google.maps.Animation.DROP);
-
-    // marker.addListener('click', () => {
-    //   this.props.router.push(`/businesses/${business.id}`);
-    // });
-
+    this.addWindow(business, marker);
+    console.log(business);
   }
 
   addWindow(business, marker) {
@@ -83,7 +67,7 @@ class MapItem extends React.Component {
     });
 
     // hovering over html element
-    const htmlElement = document.getElementById(business.id);
+    const htmlElement = document.getElementById(business.name);
     if (htmlElement) {
       htmlElement.onmouseover = () => {
         window.open(this.map, marker);

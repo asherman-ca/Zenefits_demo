@@ -38,13 +38,13 @@ class Places extends React.Component {
             {this.props.locations.map(location => (
               <li className="list-group-item" key={location.id}>
                 <p>
-                  <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`}>
+                  <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
                     {location.name}
                   </a>
                 </p>
                 <div className="collapse" id={`${location.id}`}>
                   <div className="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    {location.vicinity}
                   </div>
                 </div>
               </li>
