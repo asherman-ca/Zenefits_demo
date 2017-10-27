@@ -6,19 +6,21 @@ import { withRouter } from 'react-router';
 class MapItem extends React.Component {
   constructor(props) {
     super(props);
+
     autoBind(this);
   }
 
   componentDidMount() {
     const map = ReactDOM.findDOMNode(this.refs.map);
-    // const latlng = new google.maps.LatLng(37.7749, -122.4194);
     const options = {
       center: this.props.center,
       zoom: this.props.zoom
     };
 
     this.map = new google.maps.Map(map, options);
-    // this.props.positions.locations.forEach(business => this.addBusiness(business));
+    if (this.props.positions.length > 0) {
+      this.props.positions.locations.forEach(business => this.addBusiness(business));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,15 +31,12 @@ class MapItem extends React.Component {
     };
 
     this.map = new google.maps.Map(map, options);
-    
     if (nextProps.positions.length > 0) {
       nextProps.positions.forEach(business => this.addBusiness(business));
     }
-    // nextProps.positions.forEach(business => this.addBusiness(business));
   }
 
   addBusiness(business) {
-    // const pos = new google.maps.LatLng(business.geometry.viewport.f.f, business.geometry.viewport.b.b);
     const pos = { lat: business.geometry.viewport.f.f, lng: business.geometry.viewport.b.b };
     const marker = new google.maps.Marker({
       position: pos,

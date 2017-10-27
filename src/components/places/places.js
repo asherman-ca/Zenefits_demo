@@ -24,35 +24,40 @@ class Places extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
+  componentDidMount() {
+    this.setState({ loading: false });
+  }
+
   componentWillReceiveProps(newProps) {
-    this.setState({ loading: !this.state.loading });
+    console.log("new props");
+    this.setState({ loading: false });
+  }
+
+
+  drawWindow () {
+    if (this.props.locations.length > 0) {
+      return <div className="places-tron">
+                <ul className="list-group">
+                  {this.props.locations.map(location => (
+                    <li className="list-group-item" key={location.id}>
+                      <p>
+                        <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
+                          {location.name}
+                        </a>
+                      </p>
+                      <div className="collapse" id={`${location.id}`}>
+                        <div className="card card-body">
+                          {location.vicinity}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>; 
+    }
   }
 
   render(){
-
-    let locationResults;
-    if (this.props.locations.length > 0) {
-      locationResults = (
-        <div className="places-tron">
-          <ul className="list-group"> 
-            {this.props.locations.map(location => (
-              <li className="list-group-item" key={location.id}>
-                <p>
-                  <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
-                    {location.name}
-                  </a>
-                </p>
-                <div className="collapse" id={`${location.id}`}>
-                  <div className="card card-body">
-                    {location.vicinity}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>  
-      );
-    }
 
     return(
       <div id="main">
@@ -77,12 +82,12 @@ class Places extends React.Component {
               </div>
           </div>
         </Modal>
-        {locationResults}
-        <Map 
+        {this.drawWindow()}
+        <Map
           zoom={13}
           center={{ lat: 37.780120, lng: -122.480507 }}
           positions={this.props.locations}
-          />
+        />
       </div>
     );
   }

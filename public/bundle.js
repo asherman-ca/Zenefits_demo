@@ -61,7 +61,7 @@
 	
 	var _root2 = _interopRequireDefault(_root);
 	
-	var _store = __webpack_require__(/*! ./components/core/store */ 304);
+	var _store = __webpack_require__(/*! ./components/core/store */ 302);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -22338,7 +22338,7 @@
 	
 	var _places_container2 = _interopRequireDefault(_places_container);
 	
-	var _header_container = __webpack_require__(/*! ../header/header_container */ 300);
+	var _header_container = __webpack_require__(/*! ../header/header_container */ 298);
 	
 	var _header_container2 = _interopRequireDefault(_header_container);
 	
@@ -30483,17 +30483,21 @@
 	      this.setState({ modalIsOpen: false });
 	    }
 	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      this.setState({ loading: !this.state.loading });
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setState({ loading: false });
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
-	
-	      var locationResults = void 0;
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      console.log("new props");
+	      this.setState({ loading: false });
+	    }
+	  }, {
+	    key: 'drawWindow',
+	    value: function drawWindow() {
 	      if (this.props.locations.length > 0) {
-	        locationResults = _react2.default.createElement(
+	        return _react2.default.createElement(
 	          'div',
 	          { className: 'places-tron' },
 	          _react2.default.createElement(
@@ -30526,6 +30530,10 @@
 	          )
 	        );
 	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -30575,7 +30583,7 @@
 	            )
 	          )
 	        ),
-	        locationResults,
+	        this.drawWindow(),
 	        _react2.default.createElement(_map2.default, {
 	          zoom: 13,
 	          center: { lat: 37.780120, lng: -122.480507 },
@@ -31809,20 +31817,25 @@
 	  _createClass(MapItem, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+	
 	      var map = _reactDom2.default.findDOMNode(this.refs.map);
-	      // const latlng = new google.maps.LatLng(37.7749, -122.4194);
 	      var options = {
 	        center: this.props.center,
 	        zoom: this.props.zoom
 	      };
 	
 	      this.map = new google.maps.Map(map, options);
-	      // this.props.positions.locations.forEach(business => this.addBusiness(business));
+	      if (this.props.positions.length > 0) {
+	        this.props.positions.locations.forEach(function (business) {
+	          return _this2.addBusiness(business);
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var map = _reactDom2.default.findDOMNode(this.refs.map);
 	      var options = {
@@ -31831,18 +31844,15 @@
 	      };
 	
 	      this.map = new google.maps.Map(map, options);
-	
 	      if (nextProps.positions.length > 0) {
 	        nextProps.positions.forEach(function (business) {
-	          return _this2.addBusiness(business);
+	          return _this3.addBusiness(business);
 	        });
 	      }
-	      // nextProps.positions.forEach(business => this.addBusiness(business));
 	    }
 	  }, {
 	    key: 'addBusiness',
 	    value: function addBusiness(business) {
-	      // const pos = new google.maps.LatLng(business.geometry.viewport.f.f, business.geometry.viewport.b.b);
 	      var pos = { lat: business.geometry.viewport.f.f, lng: business.geometry.viewport.b.b };
 	      var marker = new google.maps.Marker({
 	        position: pos,
@@ -31855,7 +31865,7 @@
 	  }, {
 	    key: 'addWindow',
 	    value: function addWindow(business, marker) {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      var windowString = "<div class='map-window'>" + ('<h1 class=\'map-name\'>' + business.name + '</h1>') + ('<h2>' + business.address + '</h2>') + "</div>";
 	      var window = new google.maps.InfoWindow({
@@ -31864,22 +31874,22 @@
 	      });
 	
 	      marker.addListener('mouseover', function () {
-	        window.open(_this3.map, marker);
+	        window.open(_this4.map, marker);
 	      });
 	
 	      marker.addListener('mouseout', function () {
-	        window.close(_this3.map, marker);
+	        window.close(_this4.map, marker);
 	      });
 	
 	      // hovering over html element
 	      var htmlElement = document.getElementById(business.name);
 	      if (htmlElement) {
 	        htmlElement.onmouseover = function () {
-	          window.open(_this3.map, marker);
+	          window.open(_this4.map, marker);
 	        };
 	
 	        htmlElement.onmouseout = function () {
-	          window.close(_this3.map, marker);
+	          window.close(_this4.map, marker);
 	        };
 	      }
 	    }
@@ -32012,9 +32022,7 @@
 	exports.default = customStyles;
 
 /***/ }),
-/* 298 */,
-/* 299 */,
-/* 300 */
+/* 298 */
 /*!***************************************************!*\
   !*** ./src/components/header/header_container.js ***!
   \***************************************************/
@@ -32028,11 +32036,11 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 185);
 	
-	var _header = __webpack_require__(/*! ./header */ 301);
+	var _header = __webpack_require__(/*! ./header */ 299);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
-	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 302);
+	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 300);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32053,7 +32061,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_header2.default);
 
 /***/ }),
-/* 301 */
+/* 299 */
 /*!*****************************************!*\
   !*** ./src/components/header/header.js ***!
   \*****************************************/
@@ -32150,7 +32158,7 @@
 	exports.default = Header;
 
 /***/ }),
-/* 302 */
+/* 300 */
 /*!*****************************************!*\
   !*** ./src/actions/location_actions.js ***!
   \*****************************************/
@@ -32163,7 +32171,7 @@
 	});
 	exports.receiveLocations = exports.requestLocations = exports.RECEIVE_LOCATIONS = undefined;
 	
-	var _location_util = __webpack_require__(/*! ../util/location_util */ 303);
+	var _location_util = __webpack_require__(/*! ../util/location_util */ 301);
 	
 	var LocationUtil = _interopRequireWildcard(_location_util);
 	
@@ -32183,7 +32191,7 @@
 	};
 
 /***/ }),
-/* 303 */
+/* 301 */
 /*!***********************************!*\
   !*** ./src/util/location_util.js ***!
   \***********************************/
@@ -32226,7 +32234,7 @@
 	};
 
 /***/ }),
-/* 304 */
+/* 302 */
 /*!**************************************!*\
   !*** ./src/components/core/store.js ***!
   \**************************************/
@@ -32238,13 +32246,13 @@
 	  value: true
 	});
 	
-	var _root_reducer = __webpack_require__(/*! ../../reducers/root_reducer */ 305);
+	var _root_reducer = __webpack_require__(/*! ../../reducers/root_reducer */ 303);
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
 	var _redux = __webpack_require__(/*! redux */ 198);
 	
-	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 307);
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 305);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -32258,7 +32266,7 @@
 	exports.default = configureStore;
 
 /***/ }),
-/* 305 */
+/* 303 */
 /*!**************************************!*\
   !*** ./src/reducers/root_reducer.js ***!
   \**************************************/
@@ -32270,7 +32278,7 @@
 	  value: true
 	});
 	
-	var _location_reducer = __webpack_require__(/*! ./location_reducer */ 306);
+	var _location_reducer = __webpack_require__(/*! ./location_reducer */ 304);
 	
 	var _location_reducer2 = _interopRequireDefault(_location_reducer);
 	
@@ -32285,7 +32293,7 @@
 	exports.default = rootReducer;
 
 /***/ }),
-/* 306 */
+/* 304 */
 /*!******************************************!*\
   !*** ./src/reducers/location_reducer.js ***!
   \******************************************/
@@ -32297,7 +32305,7 @@
 	  value: true
 	});
 	
-	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 302);
+	var _location_actions = __webpack_require__(/*! ../actions/location_actions */ 300);
 	
 	var _defaultState = {
 	  locations: []
@@ -32319,7 +32327,7 @@
 	exports.default = locationReducer;
 
 /***/ }),
-/* 307 */
+/* 305 */
 /*!************************************!*\
   !*** ./~/redux-thunk/lib/index.js ***!
   \************************************/
