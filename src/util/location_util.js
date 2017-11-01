@@ -15,12 +15,11 @@ export const fetchLocations = string => dispatch => {
   function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       dispatch(receiveLocations(results));
-      new google.maps.Map(map, options);
     } else {
-      new google.maps.Map(map, options);
+      dispatch(receiveLocations([]));
     }
   }
-  let request = { location: latlng, radius: '500', keyword: string };
+  let request = { location: latlng, radius: '5000', keyword: string };
   let service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, callback);
 };

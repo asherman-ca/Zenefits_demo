@@ -32222,12 +32222,11 @@
 	    function callback(results, status) {
 	      if (status == google.maps.places.PlacesServiceStatus.OK) {
 	        dispatch(receiveLocations(results));
-	        new google.maps.Map(map, options);
 	      } else {
-	        new google.maps.Map(map, options);
+	        dispatch(receiveLocations([]));
 	      }
 	    }
-	    var request = { location: latlng, radius: '500', keyword: string };
+	    var request = { location: latlng, radius: '5000', keyword: string };
 	    var service = new google.maps.places.PlacesService(map);
 	    service.nearbySearch(request, callback);
 	  };
