@@ -1,3 +1,4 @@
+/* global google:false */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autoBind from 'react-autobind';
@@ -44,13 +45,12 @@ class MapItem extends React.Component {
     });
     marker.setAnimation(google.maps.Animation.DROP);
     this.addWindow(business, marker);
-    console.log(business);
   }
 
   addWindow(business, marker) {
     const windowString = "<div class='map-window'>" +
       `<h1 class='map-name'>${business.name}</h1>` +
-      `<h2>${business.address}</h2>` +
+      `<h2>${business.vicinity}</h2>` +
       "</div>";
     const window = new google.maps.InfoWindow({
       content: windowString,
@@ -65,7 +65,6 @@ class MapItem extends React.Component {
       window.close(this.map, marker);
     });
 
-    // hovering over html element
     const htmlElement = document.getElementById(business.name);
     if (htmlElement) {
       htmlElement.onmouseover = () => {

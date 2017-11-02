@@ -72,9 +72,6 @@
 	  var store = (0, _store2.default)();
 	
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), document.getElementById('root'));
-	  window.store = store;
-	  window.s = store.getState;
-	  // console.log(store);
 	});
 
 /***/ }),
@@ -22361,7 +22358,7 @@
 	    )
 	  );
 	};
-	// import PlacesDetailContainer from '../places_detail/places_detail_container';
+	
 	exports.default = Root;
 
 /***/ }),
@@ -30484,15 +30481,7 @@
 	    }
 	  }, {
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setState({ loading: false });
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      console.log("new props");
-	      this.setState({ loading: false });
-	    }
+	    value: function componentDidMount() {}
 	  }, {
 	    key: 'drawWindow',
 	    value: function drawWindow() {
@@ -30586,7 +30575,7 @@
 	        this.drawWindow(),
 	        _react2.default.createElement(_map2.default, {
 	          zoom: 13,
-	          center: { lat: 37.780120, lng: -122.480507 },
+	          center: { lat: 37.7849, lng: -122.4394 },
 	          positions: this.props.locations
 	        })
 	      );
@@ -31800,7 +31789,8 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global google:false */
+	
 	
 	var MapItem = function (_React$Component) {
 	  _inherits(MapItem, _React$Component);
@@ -31860,14 +31850,13 @@
 	      });
 	      marker.setAnimation(google.maps.Animation.DROP);
 	      this.addWindow(business, marker);
-	      console.log(business);
 	    }
 	  }, {
 	    key: 'addWindow',
 	    value: function addWindow(business, marker) {
 	      var _this4 = this;
 	
-	      var windowString = "<div class='map-window'>" + ('<h1 class=\'map-name\'>' + business.name + '</h1>') + ('<h2>' + business.address + '</h2>') + "</div>";
+	      var windowString = "<div class='map-window'>" + ('<h1 class=\'map-name\'>' + business.name + '</h1>') + ('<h2>' + business.vicinity + '</h2>') + "</div>";
 	      var window = new google.maps.InfoWindow({
 	        content: windowString,
 	        maxWidth: 200
@@ -31881,7 +31870,6 @@
 	        window.close(_this4.map, marker);
 	      });
 	
-	      // hovering over html element
 	      var htmlElement = document.getElementById(business.name);
 	      if (htmlElement) {
 	        htmlElement.onmouseover = function () {
@@ -32202,6 +32190,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global google:false */
+	
 	var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS';
 	
 	var receiveLocations = exports.receiveLocations = function receiveLocations(locations) {
@@ -32215,10 +32205,6 @@
 	  return function (dispatch) {
 	    var map = document.getElementById('google-map');
 	    var latlng = { lat: 37.780120, lng: -122.480507 };
-	    var options = {
-	      center: latlng,
-	      zoom: 13
-	    };
 	    function callback(results, status) {
 	      if (status == google.maps.places.PlacesServiceStatus.OK) {
 	        dispatch(receiveLocations(results));

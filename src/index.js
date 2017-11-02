@@ -4,7 +4,6 @@ import ReactDom from 'react-dom';
 import Root from './components/core/root';
 import configureStore from './components/core/store';
 
-
 document.addEventListener('DOMContentLoaded', () => {
   let store = configureStore();
 
@@ -12,9 +11,4 @@ document.addEventListener('DOMContentLoaded', () => {
     <Root store={store} />,
     document.getElementById('root')
   );
-  window.store = store;
-  window.s = store.getState;
-  // console.log(store);
 });
-
-

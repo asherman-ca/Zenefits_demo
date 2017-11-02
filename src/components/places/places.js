@@ -25,14 +25,7 @@ class Places extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: false });
   }
-
-  componentWillReceiveProps(newProps) {
-    console.log("new props");
-    this.setState({ loading: false });
-  }
-
 
   drawWindow () {
     if (this.props.locations.length > 0) {
@@ -85,7 +78,7 @@ class Places extends React.Component {
         {this.drawWindow()}
         <Map
           zoom={13}
-          center={{ lat: 37.780120, lng: -122.480507 }}
+          center={{ lat: 37.7849, lng: -122.4394 }}
           positions={this.props.locations}
         />
       </div>
