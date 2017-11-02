@@ -65,8 +65,10 @@ class MapItem extends React.Component {
       window.close(this.map, marker);
     });
 
+    console.log('hit');
     const htmlElement = document.getElementById(business.name);
     if (htmlElement) {
+      console.log('inside hit');
       htmlElement.onmouseover = () => {
         window.open(this.map, marker);
       };
@@ -83,6 +85,10 @@ class MapItem extends React.Component {
     );
   }
 }
+
+MapItem.defaultProps = {
+  positions: []
+};
 
 MapItem.propTypes = {
   center: React.PropTypes.object.isRequired,

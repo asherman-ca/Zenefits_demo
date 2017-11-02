@@ -26,7 +26,7 @@ class Header extends React.Component {
       <div>
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light justify-content-between">
         <a className="navbar-brand">
-            <img onClick={() => console.log(this.props.locations)} className="zenefits-logo" src="https://cdn.worldvectorlogo.com/logos/zenefits.svg"/>
+            <img className="zenefits-logo" src="https://cdn.worldvectorlogo.com/logos/zenefits.svg"/>
         </a>
         <form onSubmit={this.handleSubmit} className="form-inline">
           <input value={this.state.searchString} onChange={this.handleChange} className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
@@ -40,9 +40,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  children: React.PropTypes.array,
-  requestLocations: React.PropTypes.func.isRequired,
-  locations: React.PropTypes.array.isRequired
+  children: React.PropTypes.object,
+  requestLocations: React.PropTypes.func
 };
 
 export default Header;

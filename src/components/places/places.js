@@ -11,11 +11,21 @@ class Places extends React.Component {
 
     this.state = {
       modalIsOpen: true,
-      loading: true
+      loading: true,
+      searchString: ''
     };
 
     autoBind(this);
   }  
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.requestLocations(this.state.searchString);
+  }
+
+  handleChange(e) {
+    this.setState({ searchString: e.target.value });
+  }
 
   openModal() {
     this.setState({ modalIsOpen: true });
@@ -27,13 +37,16 @@ class Places extends React.Component {
 
   drawWindow () {
     if (this.props.locations.length > 0) {
-      return <div className="places-tron">
+      return  <div className="places-tron">
                 <ul className="list-group">
                   {this.props.locations.map(location => (
-                    <PlacesItem location={location} />
+                    <PlacesItem 
+                      location={location} 
+                      key={location.id}
+                      />
                   ))}
-                </ul>  
-             </div>;
+                </ul>
+            </div>;
     }
   }
 
@@ -58,23 +71,31 @@ class Places extends React.Component {
               </div>
               <div className="bottom">produced by Alex Sherman</div>
               <div className="buttons">
-              <button type="button" onClick={this.closeModal} className="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form onSubmit={this.handleSubmit} className="form-inline">
+                <input value={this.state.searchString} onChange={this.handleChange} className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+              </form>
               </div>
           </div>
         </Modal>
         {this.drawWindow()}
-        <Map
+        {<Map
           zoom={13}
           center={{ lat: 37.7849, lng: -122.4394 }}
           positions={this.props.locations}
-        />
+        />}
       </div>
     );
   }
 }
 
+Places.defaultProps = {
+  locations: []
+};
+
 Places.propTypes = {
-  locations: React.PropTypes.array.isRequired
+  locations: React.PropTypes.array,
+  requestLocations: React.PropTypes.func
 };
 
 export default Places;

@@ -17,8 +17,12 @@ const PlacesItem = ({location}) => {
   );
 };
 
+PlacesItem.defaultProps = {
+  location: {}
+};
+
 PlacesItem.propTypes = {
-  location: React.PropTypes.object.isRequired
+  location: React.PropTypes.object
 };
 
 export default PlacesItem;

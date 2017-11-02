@@ -30399,6 +30399,8 @@
 	
 	var _places2 = _interopRequireDefault(_places);
 	
+	var _location_actions = __webpack_require__(/*! ../../actions/location_actions */ 300);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -30407,8 +30409,12 @@
 	  };
 	};
 	
-	var mapDispatchToProps = function mapDispatchToProps() {
-	  return {};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    requestLocations: function requestLocations(string) {
+	      return dispatch((0, _location_actions.requestLocations)(string));
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_places2.default));
@@ -30470,7 +30476,8 @@
 	
 	    _this.state = {
 	      modalIsOpen: true,
-	      loading: true
+	      loading: true,
+	      searchString: ''
 	    };
 	
 	    (0, _reactAutobind2.default)(_this);
@@ -30478,6 +30485,17 @@
 	  }
 	
 	  _createClass(Places, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      this.props.requestLocations(this.state.searchString);
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      this.setState({ searchString: e.target.value });
+	    }
+	  }, {
 	    key: 'openModal',
 	    value: function openModal() {
 	      this.setState({ modalIsOpen: true });
@@ -30498,7 +30516,10 @@
 	            'ul',
 	            { className: 'list-group' },
 	            this.props.locations.map(function (location) {
-	              return _react2.default.createElement(_places_item2.default, { location: location });
+	              return _react2.default.createElement(_places_item2.default, {
+	                location: location,
+	                key: location.id
+	              });
 	            })
 	          )
 	        );
@@ -30549,9 +30570,14 @@
 	              'div',
 	              { className: 'buttons' },
 	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', onClick: this.closeModal, className: 'btn btn-secondary', 'data-dismiss': 'modal' },
-	                'Close'
+	                'form',
+	                { onSubmit: this.handleSubmit, className: 'form-inline' },
+	                _react2.default.createElement('input', { value: this.state.searchString, onChange: this.handleChange, className: 'form-control mr-sm-2', type: 'text', placeholder: 'Search', 'aria-label': 'Search' }),
+	                _react2.default.createElement(
+	                  'button',
+	                  { className: 'btn btn-outline-secondary my-2 my-sm-0', type: 'submit' },
+	                  'Search'
+	                )
 	              )
 	            )
 	          )
@@ -30569,8 +30595,12 @@
 	  return Places;
 	}(_react2.default.Component);
 	
+	Places.defaultProps = {
+	  locations: []
+	};
+	
 	Places.propTypes = {
-	  locations: _react2.default.PropTypes.array.isRequired
+	  locations: _react2.default.PropTypes.array
 	};
 	
 	exports.default = Places;
@@ -31858,8 +31888,10 @@
 	        window.close(_this4.map, marker);
 	      });
 	
+	      console.log('hit');
 	      var htmlElement = document.getElementById(business.name);
 	      if (htmlElement) {
+	        console.log('inside hit');
 	        htmlElement.onmouseover = function () {
 	          window.open(_this4.map, marker);
 	        };
@@ -31878,6 +31910,10 @@
 	
 	  return MapItem;
 	}(_react2.default.Component);
+	
+	MapItem.defaultProps = {
+	  positions: []
+	};
 	
 	MapItem.propTypes = {
 	  center: _react2.default.PropTypes.object.isRequired,
@@ -32026,10 +32062,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    locations: state.location
-	  };
+	var mapStateToProps = function mapStateToProps() {
+	  return {};
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -32103,8 +32137,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -32114,9 +32146,7 @@
 	          _react2.default.createElement(
 	            'a',
 	            { className: 'navbar-brand' },
-	            _react2.default.createElement('img', { onClick: function onClick() {
-	                return console.log(_this2.props.locations);
-	              }, className: 'zenefits-logo', src: 'https://cdn.worldvectorlogo.com/logos/zenefits.svg' })
+	            _react2.default.createElement('img', { className: 'zenefits-logo', src: 'https://cdn.worldvectorlogo.com/logos/zenefits.svg' })
 	          ),
 	          _react2.default.createElement(
 	            'form',
@@ -32138,9 +32168,8 @@
 	}(_react2.default.Component);
 	
 	Header.propTypes = {
-	  children: _react2.default.PropTypes.array,
-	  requestLocations: _react2.default.PropTypes.func.isRequired,
-	  locations: _react2.default.PropTypes.array.isRequired
+	  children: _react2.default.PropTypes.object,
+	  requestLocations: _react2.default.PropTypes.func
 	};
 	
 	exports.default = Header;
@@ -32388,8 +32417,12 @@
 	  );
 	};
 	
+	PlacesItem.defaultProps = {
+	  location: {}
+	};
+	
 	PlacesItem.propTypes = {
-	  location: _react2.default.PropTypes.object.isRequired
+	  location: _react2.default.PropTypes.object
 	};
 	
 	exports.default = PlacesItem;
