@@ -30444,6 +30444,10 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _places_item = __webpack_require__(/*! ./places_item */ 306);
+	
+	var _places_item2 = _interopRequireDefault(_places_item);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30493,28 +30497,7 @@
 	            'ul',
 	            { className: 'list-group' },
 	            this.props.locations.map(function (location) {
-	              return _react2.default.createElement(
-	                'li',
-	                { className: 'list-group-item', key: location.id },
-	                _react2.default.createElement(
-	                  'p',
-	                  null,
-	                  _react2.default.createElement(
-	                    'a',
-	                    { className: 'location-item', 'data-toggle': 'collapse', href: '#' + location.id, 'aria-expanded': 'false', 'aria-controls': '' + location.id, id: location.name },
-	                    location.name
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'collapse', id: '' + location.id },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'card card-body' },
-	                    location.vicinity
-	                  )
-	                )
-	              );
+	              return _react2.default.createElement(_places_item2.default, { location: location });
 	            })
 	          )
 	        );
@@ -32341,6 +32324,54 @@
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ }),
+/* 306 */
+/*!**********************************************!*\
+  !*** ./src/components/places/places_item.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Header = function Header(_ref) {
+	  var location = _ref.location;
+	
+	  return _react2.default.createElement(
+	    "li",
+	    { className: "list-group-item", key: location.id },
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      _react2.default.createElement(
+	        "a",
+	        { className: "location-item", "data-toggle": "collapse", href: "#" + location.id, "aria-expanded": "false", "aria-controls": "" + location.id, id: location.name },
+	        location.name
+	      )
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { className: "collapse", id: "" + location.id },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "card card-body" },
+	        location.vicinity
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = Header;
 
 /***/ })
 /******/ ]);

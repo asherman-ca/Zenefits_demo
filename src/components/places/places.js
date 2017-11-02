@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Map from '../core/map';
 import autoBind from 'react-autobind';
 import customStyles from './styles';
+import PlacesItem from './places_item';
 
 class Places extends React.Component {
   constructor(props) {
@@ -30,23 +31,12 @@ class Places extends React.Component {
   drawWindow () {
     if (this.props.locations.length > 0) {
       return <div className="places-tron">
-                <ul className="list-group">
-                  {this.props.locations.map(location => (
-                    <li className="list-group-item" key={location.id}>
-                      <p>
-                        <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
-                          {location.name}
-                        </a>
-                      </p>
-                      <div className="collapse" id={`${location.id}`}>
-                        <div className="card card-body">
-                          {location.vicinity}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>; 
+              <ul className="list-group">
+                {this.props.locations.map(location => (
+                  <PlacesItem location={location} />
+                ))}
+              </ul>  
+             </div>;
     }
   }
 

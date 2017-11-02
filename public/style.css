@@ -178,8 +178,5 @@ nav {
   .location-item:hover {
     color: grey; }
 
-.zenefits-button {
-  height: 38px;
-  width: 92px;
-  background: black;
-  color: white; }
+.map-name {
+  font-weight: bold; }
