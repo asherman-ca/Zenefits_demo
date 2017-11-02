@@ -30600,7 +30600,8 @@
 	};
 	
 	Places.propTypes = {
-	  locations: _react2.default.PropTypes.array
+	  locations: _react2.default.PropTypes.array,
+	  requestLocations: _react2.default.PropTypes.func
 	};
 	
 	exports.default = Places;
