@@ -16,4 +16,8 @@ const Root = ({ store }) => {
   );
 };
 
+Root.propTypes = {
+  store: React.PropTypes.object.isRequired
+};
+
 export default Root;

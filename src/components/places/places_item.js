@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Header = ({location}) => {
+const PlacesItem = ({location}) => {
   return (
-    <li className="list-group-item" key={location.id}>
+    <li className="list-group-item" key={location.id} data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
       <p>
-        <a className="location-item" data-toggle="collapse" href={`#${location.id}`} aria-expanded="false" aria-controls={`${location.id}`} id={location.name}>
+        <a className="location-item" >
           {location.name}
         </a>
       </p>
@@ -17,4 +17,8 @@ const Header = ({location}) => {
   );
 };
 
-export default Header;
+PlacesItem.propTypes = {
+  location: React.PropTypes.object.isRequired
+};
+
+export default PlacesItem;

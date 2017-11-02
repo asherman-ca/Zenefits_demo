@@ -22359,6 +22359,10 @@
 	  );
 	};
 	
+	Root.propTypes = {
+	  store: _react2.default.PropTypes.object.isRequired
+	};
+	
 	exports.default = Root;
 
 /***/ }),
@@ -30484,9 +30488,6 @@
 	      this.setState({ modalIsOpen: false });
 	    }
 	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
 	    key: 'drawWindow',
 	    value: function drawWindow() {
 	      if (this.props.locations.length > 0) {
@@ -30567,6 +30568,10 @@
 	
 	  return Places;
 	}(_react2.default.Component);
+	
+	Places.propTypes = {
+	  locations: _react2.default.PropTypes.array.isRequired
+	};
 	
 	exports.default = Places;
 
@@ -31874,6 +31879,12 @@
 	  return MapItem;
 	}(_react2.default.Component);
 	
+	MapItem.propTypes = {
+	  center: _react2.default.PropTypes.object.isRequired,
+	  zoom: _react2.default.PropTypes.number.isRequired,
+	  positions: _react2.default.PropTypes.array.isRequired
+	};
+	
 	exports.default = (0, _reactRouter.withRouter)(MapItem);
 
 /***/ }),
@@ -32126,6 +32137,12 @@
 	  return Header;
 	}(_react2.default.Component);
 	
+	Header.propTypes = {
+	  children: _react2.default.PropTypes.array,
+	  requestLocations: _react2.default.PropTypes.func.isRequired,
+	  locations: _react2.default.PropTypes.array.isRequired
+	};
+	
 	exports.default = Header;
 
 /***/ }),
@@ -32344,18 +32361,18 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Header = function Header(_ref) {
+	var PlacesItem = function PlacesItem(_ref) {
 	  var location = _ref.location;
 	
 	  return _react2.default.createElement(
 	    "li",
-	    { className: "list-group-item", key: location.id },
+	    { className: "list-group-item", key: location.id, "data-toggle": "collapse", href: "#" + location.id, "aria-expanded": "false", "aria-controls": "" + location.id, id: location.name },
 	    _react2.default.createElement(
 	      "p",
 	      null,
 	      _react2.default.createElement(
 	        "a",
-	        { className: "location-item", "data-toggle": "collapse", href: "#" + location.id, "aria-expanded": "false", "aria-controls": "" + location.id, id: location.name },
+	        { className: "location-item" },
 	        location.name
 	      )
 	    ),
@@ -32371,7 +32388,11 @@
 	  );
 	};
 	
-	exports.default = Header;
+	PlacesItem.propTypes = {
+	  location: _react2.default.PropTypes.object.isRequired
+	};
+	
+	exports.default = PlacesItem;
 
 /***/ })
 /******/ ]);

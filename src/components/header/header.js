@@ -39,4 +39,10 @@ class Header extends React.Component {
   }
 }
 
+Header.propTypes = {
+  children: React.PropTypes.array,
+  requestLocations: React.PropTypes.func.isRequired,
+  locations: React.PropTypes.array.isRequired
+};
+
 export default Header;

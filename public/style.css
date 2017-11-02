@@ -180,3 +180,12 @@ nav {
 
 .map-name {
   font-weight: bold; }
+
+.list-group-item {
+  cursor: pointer;
+  margin-bottom: 2.5px;
+  transition: .2s; }
+  .list-group-item .card {
+    margin-top: 10px; }
+  .list-group-item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }

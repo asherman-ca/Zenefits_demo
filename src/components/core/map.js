@@ -75,7 +75,6 @@ class MapItem extends React.Component {
         window.close(this.map, marker);
       };
     }
-
   }
 
   render() {
@@ -84,5 +83,11 @@ class MapItem extends React.Component {
     );
   }
 }
+
+MapItem.propTypes = {
+  center: React.PropTypes.object.isRequired,
+  zoom: React.PropTypes.number.isRequired,
+  positions: React.PropTypes.array.isRequired
+};
 
 export default withRouter(MapItem);

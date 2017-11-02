@@ -25,17 +25,14 @@ class Places extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-  componentDidMount() {
-  }
-
   drawWindow () {
     if (this.props.locations.length > 0) {
       return <div className="places-tron">
-              <ul className="list-group">
-                {this.props.locations.map(location => (
-                  <PlacesItem location={location} />
-                ))}
-              </ul>  
+                <ul className="list-group">
+                  {this.props.locations.map(location => (
+                    <PlacesItem location={location} />
+                  ))}
+                </ul>  
              </div>;
     }
   }
@@ -75,5 +72,9 @@ class Places extends React.Component {
     );
   }
 }
+
+Places.propTypes = {
+  locations: React.PropTypes.array.isRequired
+};
 
 export default Places;
